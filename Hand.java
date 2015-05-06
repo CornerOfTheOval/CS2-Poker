@@ -44,14 +44,26 @@ public class Hand implements Comparable {
             containsNums.set(i,containsNums.get(i)++);
         }
       }
+
       int highest = 0;
       for(int i=0;i<5;i++){
         if(containsNums.get(i) > highest)
           highest = containsNums.get(i);
       }
+
+      int highIndex = hand.get(containsNums.indexOf(highest));
+
       containsNums.remove(containsNums.indexOf(highest));
       if(containsNums.contains(highest) && highest == 2)
         twoPair = true;
+
+      int nxtHighest = 0;
+      for(int i=0;i<5;i++){
+        if(containsNums.get(i) > nxtHighest)
+          nxtHighest = containsNums.get(i);
+      }
+      containsNums.add(highest);
+
       //this file is complete shit and wont work ;)
       sum = hand.get(0).value + hand.get(1).value + hand.get(2).value + hand.get(3).value + hand.get(4).value;
       if(hand.get(0).suit.equals(hand.get(1).suit) && hand.get(0).suit.equals(hand.get(2).suit) && hand.get(0).suit.equals(hand.get(3).suit) && hand.get(0).suit.equals(hand.get(4).suit) )
@@ -59,10 +71,26 @@ public class Hand implements Comparable {
       if(hand.get(0).value == hand.get(1).value -1 && hand.get(1).value == hand.get(2).value -1 && hand.get(2).value == hand.get(3).value -1 && hand.get(3).value == hand.get(4).value-1)
         straight == true;
       if(sum == 60 && suitSame)
-        return 10000;
+        return "Royal Flush";//10000;
       else if(straight && suitSame)
-        return 9000;
-      else if()
+        return "Straight Flush";//9000;
+      else if(highest == 4)
+        return "Four of a Kind";//8000;
+      else if(highest == 3 && nxtHighest == 2)
+        return "Full House";//7000;
+      else if(suitSame)
+        return "Flush";//6000;
+      else if(straight)
+        return "Straight";//5000;
+      else if(highest == 3)
+        return "Three of a Kind";//4000;
+      else if(twoPair)
+        return "Two Pair";//3000;
+      else if(highest == 2)
+        return "One Pair";//2000;
+      else
+        return "High Card";/*hand.get(highIndex).value*/
+
 
       return "TODO: String of Best Hand; may need helper methods";
    }
