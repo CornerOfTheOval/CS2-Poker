@@ -34,14 +34,18 @@ public class Hand implements Comparable {
    WORST
    */
    public String handValue() {
-      boolean suitSame == false;
-      boolean strait == false;
-      boolean twoPair == false;
-      ArrayList<Integer> containsNums = new ArrayList<Integer>(0,0,0,0,0);
+      boolean suitSame = false;
+      boolean straight = false;
+      boolean twoPair = false;
+      ArrayList<Integer> containsNums = new ArrayList<Integer>();
+      for(int i=0;i<5;i++){
+        containsNums.add(0);
+      }
+
       for(int i=0;i<5;i++){
         for(int j =0;j<5;j++){
           if(hand.get(i).value == hand.get(j).value)
-            containsNums.set(i,containsNums.get(i)++);
+            containsNums.set(i,containsNums.get(i)+1);
         }
       }
 
@@ -51,7 +55,7 @@ public class Hand implements Comparable {
           highest = containsNums.get(i);
       }
 
-      int highIndex = hand.get(containsNums.indexOf(highest));
+      //int highIndex = hand.get(containsNums.indexOf(highest));
 
       containsNums.remove(containsNums.indexOf(highest));
       if(containsNums.contains(highest) && highest == 2)
@@ -64,12 +68,11 @@ public class Hand implements Comparable {
       }
       containsNums.add(highest);
 
-      //this file is complete shit and wont work ;)
-      sum = hand.get(0).value + hand.get(1).value + hand.get(2).value + hand.get(3).value + hand.get(4).value;
+      int sum = hand.get(0).value + hand.get(1).value + hand.get(2).value + hand.get(3).value + hand.get(4).value;
       if(hand.get(0).suit.equals(hand.get(1).suit) && hand.get(0).suit.equals(hand.get(2).suit) && hand.get(0).suit.equals(hand.get(3).suit) && hand.get(0).suit.equals(hand.get(4).suit) )
-        suitSame == false;
+        suitSame = false;
       if(hand.get(0).value == hand.get(1).value -1 && hand.get(1).value == hand.get(2).value -1 && hand.get(2).value == hand.get(3).value -1 && hand.get(3).value == hand.get(4).value-1)
-        straight == true;
+        straight = true;
       if(sum == 60 && suitSame)
         return "Royal Flush";//10000;
       else if(straight && suitSame)
@@ -92,12 +95,25 @@ public class Hand implements Comparable {
         return "High Card";/*hand.get(highIndex).value*/
 
 
-      return "TODO: String of Best Hand; may need helper methods";
+      //return "TODO: String of Best Hand; may need helper methods";
+   }
+
+   public int convertValue(Hand h){
+     if(h.handValue().equals("Royal Flush"))
+      return 10;
+     else if(h.handValue().equals("Straight Flush"))
+      return 9;
+     else if(h.handValue().equals("Four of a Kind"))
+      return 8;
+     else if(h.handValue().equals("FullHouse"))
+      return 7;
+     //KEEP WORKING HERE
    }
 
    public int compareTo(Object x){
       Hand other = (Hand)x;
       //TODO: Compare hands by ordering above; return -1, 1, or 0
-      return 0;
+
+        return 0;
    }
 }
