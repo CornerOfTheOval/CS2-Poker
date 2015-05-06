@@ -35,7 +35,8 @@ public class Hand implements Comparable {
    */
    public String handValue() {
       boolean suitSame == false;
-      boolean strait == true;
+      boolean strait == false;
+      boolean twoPair == false;
       ArrayList<Integer> containsNums = new ArrayList<Integer>(0,0,0,0,0);
       for(int i=0;i<5;i++){
         for(int j =0;j<5;j++){
@@ -48,6 +49,9 @@ public class Hand implements Comparable {
         if(containsNums.get(i) > highest)
           highest = containsNums.get(i);
       }
+      containsNums.remove(containsNums.indexOf(highest));
+      if(containsNums.contains(highest) && highest == 2)
+        twoPair = true;
       //this file is complete shit and wont work ;)
       sum = hand.get(0).value + hand.get(1).value + hand.get(2).value + hand.get(3).value + hand.get(4).value;
       if(hand.get(0).suit.equals(hand.get(1).suit) && hand.get(0).suit.equals(hand.get(2).suit) && hand.get(0).suit.equals(hand.get(3).suit) && hand.get(0).suit.equals(hand.get(4).suit) )
