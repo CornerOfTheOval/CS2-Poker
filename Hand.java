@@ -2,6 +2,7 @@ import java.util.*;
 
 public class Hand implements Comparable {
    private ArrayList<Card> hand;
+   private int highCardIndex;
 
    public Hand(){
       hand = new ArrayList<Card>();
@@ -74,7 +75,7 @@ public class Hand implements Comparable {
           highCardValue = hand.get(i).value;
       }
 
-      int highCardIndex = 0;
+      highCardIndex = 0;
       for(int i=0;i<hand.size();i++){
         if(hand.get(i).value == highCardValue)
           highCardIndex = i;
@@ -106,7 +107,7 @@ public class Hand implements Comparable {
       else if(highest == 2)
         return "One Pair";//2000;
       else
-        return "High Card"+ hand.get(highCardIndex).toString();/*hand.get(highIndex).value*/
+        return "High Card "+ hand.get(highCardIndex).toString();/*hand.get(highIndex).value*/
    }
 
    public int convertValue(String s){
@@ -133,7 +134,7 @@ public class Hand implements Comparable {
       else if(s.substring(0,3).equals("High"))
         return 0;
       else
-        return 0;
+        return -1;
    }
 
    public int compareTo(Object x){
@@ -142,7 +143,14 @@ public class Hand implements Comparable {
         return 1;
       else if(this.convertValue(this.handValue()) - other.convertValue(other.handValue()) < 0)
         return (-1);
-      else //if(this.convertValue(this.handValue()) - other.convertValue(other.handValue()) == 0)
-        return 0;
+      else{
+        if (this.hand.get(this.highCardIndex).value - other.hand.get(other.highCardIndex).value > 0)
+          return 1;
+        else if (this.hand.get(this.highCardIndex).value - other.hand.get(other.highCardIndex).value < 0)
+          return -1;
+        else
+          return 0;
+      } //if(this.convertValue(this.handValue()) - other.convertValue(other.handValue()) == 0)
+
    }
 }
