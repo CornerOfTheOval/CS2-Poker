@@ -42,15 +42,15 @@ public class Hand implements Comparable {
         containsNums.add(0);
       }
 
-      for(int i=0;i<5;i++){
-        for(int j =0;j<5;j++){
+      for(int i=0;i<hand.size();i++){
+        for(int j =0;j<hand.size();j++){
           if(hand.get(i).value == hand.get(j).value)
             containsNums.set(i,containsNums.get(i)+1);
         }
       }
 
       int highest = 0;
-      for(int i=0;i<5;i++){
+      for(int i=0;i<containsNums.size();i++){
         if(containsNums.get(i) > highest)
           highest = containsNums.get(i);
       }
@@ -62,17 +62,23 @@ public class Hand implements Comparable {
         twoPair = true;
 
       int nxtHighest = 0;
-      for(int i=0;i<5;i++){
+      for(int i=0;i<containsNums.size();i++){
         if(containsNums.get(i) > nxtHighest)
           nxtHighest = containsNums.get(i);
       }
       containsNums.add(highest);
 
-      /*int highCardValue = 0;
+      int highCardValue = 0;
       for(int i=0; i<5; i++){
         if(hand.get(i).value > highCardValue)
           highCardValue = hand.get(i).value;
-      }*/
+      }
+
+      int highCardIndex = 0;
+      for(int i=0;i<hand.size();i++){
+        if(hand.get(i).value == highCardValue)
+          highCardIndex = i;
+      }
 
 
       int sum = hand.get(0).value + hand.get(1).value + hand.get(2).value + hand.get(3).value + hand.get(4).value;
@@ -80,7 +86,7 @@ public class Hand implements Comparable {
         suitSame = false;
       if(hand.get(0).value == hand.get(1).value -1 && hand.get(1).value == hand.get(2).value -1 && hand.get(2).value == hand.get(3).value -1 && hand.get(3).value == hand.get(4).value-1)
         straight = true;
-        
+
       if(sum == 60 && suitSame)
         return "Royal Flush";//10000;
       else if(straight && suitSame)
@@ -100,7 +106,7 @@ public class Hand implements Comparable {
       else if(highest == 2)
         return "One Pair";//2000;
       else
-        return "High Card";/*hand.get(highIndex).value*/
+        return "High Card"+ hand.get(highCardIndex).toString();/*hand.get(highIndex).value*/
    }
 
    public int convertValue(String s){
@@ -124,7 +130,7 @@ public class Hand implements Comparable {
         return 2;
       else if(s.equals("One Pair"))
         return 1;
-      else if(s.equals("High Card"))
+      else if(s.substring(0,3).equals("High"))
         return 0;
       else
         return 0;

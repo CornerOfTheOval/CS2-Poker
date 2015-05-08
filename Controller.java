@@ -36,11 +36,11 @@ public class Controller
    public static String findWinner(){
       int result = hand1.compareTo(hand2);
       if(result == 1)
-        return "Player 1 wins!"
+        return "Player 1 wins!";
       else if(result == -1)
-        return "Player 2 wins!"
+        return "Player 2 wins!";
       else
-        return "It's a tie!"
+        return "It's a tie!";
       //return "TODO: Who wins?";
    }
 }
