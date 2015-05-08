@@ -68,6 +68,13 @@ public class Hand implements Comparable {
       }
       containsNums.add(highest);
 
+      /*int highCardValue = 0;
+      for(int i=0; i<5; i++){
+        if(hand.get(i).value > highCardValue)
+          highCardValue = hand.get(i).value;
+      }*/
+
+
       int sum = hand.get(0).value + hand.get(1).value + hand.get(2).value + hand.get(3).value + hand.get(4).value;
       if(hand.get(0).suit.equals(hand.get(1).suit) && hand.get(0).suit.equals(hand.get(2).suit) && hand.get(0).suit.equals(hand.get(3).suit) && hand.get(0).suit.equals(hand.get(4).suit) )
         suitSame = false;
@@ -92,28 +99,41 @@ public class Hand implements Comparable {
       else if(highest == 2)
         return "One Pair";//2000;
       else
-        return "High Card";/*hand.get(highIndex).value*/
-
-
-      //return "TODO: String of Best Hand; may need helper methods";
+        return "High Card"+;/*hand.get(highIndex).value*/
    }
 
-   public int convertValue(Hand h){
-     if(h.handValue().equals("Royal Flush"))
+   public int convertValue(String s){
+     if(s.equals("Royal Flush"))
       return 10;
-     else if(h.handValue().equals("Straight Flush"))
+     else if(s.equals("Straight Flush"))
       return 9;
-     else if(h.handValue().equals("Four of a Kind"))
+     else if(s.equals("Four of a Kind"))
       return 8;
-     else if(h.handValue().equals("FullHouse"))
+     else if(s.equals("FullHouse"))
       return 7;
-     //KEEP WORKING HERE
+     else if(s.equals("Flush"))
+      return 6;
+     else if(s.equals("Straight"))
+      return 5;
+     else if(s.equals("FullHouse"))
+      return 4;
+     else if(s.equals("Three of a Kind"))
+      return 3;
+     else if(s.equals("Two Pair"))
+      return 2;
+     else if(s.equals("One Pair"))
+      return 1;
+     else if(s.equals("High Card"))
+      return 0;
    }
 
    public int compareTo(Object x){
       Hand other = (Hand)x;
-      //TODO: Compare hands by ordering above; return -1, 1, or 0
-
+      if(hand.convertValue(hand.handValue()) - other.convertValue(other.handValue()) > 0)
+        return 1;
+      if(hand.convertValue(hand.handValue()) - other.convertValue(other.handValue()) < 0)
+        return (-1);
+      if(hand.convertValue(hand.handValue()) - other.convertValue(other.handValue()) == 0)
         return 0;
    }
 }
