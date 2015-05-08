@@ -80,6 +80,7 @@ public class Hand implements Comparable {
         suitSame = false;
       if(hand.get(0).value == hand.get(1).value -1 && hand.get(1).value == hand.get(2).value -1 && hand.get(2).value == hand.get(3).value -1 && hand.get(3).value == hand.get(4).value-1)
         straight = true;
+        
       if(sum == 60 && suitSame)
         return "Royal Flush";//10000;
       else if(straight && suitSame)
